@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import githubAuth from "./auth/github.js";
 import corsConfig from "./corsConfig.js";
 import ensureAuth from "./middleware/ensureAuth.js";
+import { MemoryStore } from "express-session";
 
 dotenv.config();
 
@@ -15,9 +16,13 @@ app.use(corsConfig);
 app.use(express.json());
 
 app.use(session({
+    cookie: { maxAge: 86400000 }, 
+    store: new MemoryStore({
+        checkPeriod: 86400000 
+    }),
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: false
 }));
 
 app.use(passport.initialize());
