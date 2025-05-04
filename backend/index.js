@@ -17,10 +17,12 @@ const MemStore = MemoryStore(session);
 app.use(cors);
 
 app.use(session({
-    cookie: { maxAge: 86400000 },
-    store: new MemStore({
-        checkPeriod: 86400000 
-    }),
+    cookie: {
+        maxAge: 86400000,
+        secure: true,
+        sameSite: "none",     
+    },
+    store: new MemStore({ checkPeriod: 86400000 }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
