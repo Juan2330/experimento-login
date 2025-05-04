@@ -5,19 +5,18 @@ import dotenv from "dotenv";
 import githubAuth from "./auth/github.js";
 import corsConfig from "./corsConfig.js";
 import ensureAuth from "./middleware/ensureAuth.js";
-import { MemoryStore } from "express-session";
+import MemoryStore from "memorystore";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-app.use(corsConfig);
-app.use(express.json());
+const MemStore = MemoryStore(session);
 
 app.use(session({
-    cookie: { maxAge: 86400000 }, 
-    store: new MemoryStore({
+    cookie: { maxAge: 86400000 },
+    store: new MemStore({
         checkPeriod: 86400000 
     }),
     secret: process.env.SESSION_SECRET,
