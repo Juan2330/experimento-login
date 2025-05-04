@@ -3,7 +3,7 @@ import session from "express-session";
 import passport from "passport";
 import dotenv from "dotenv";
 import githubAuth from "./auth/github.js";
-import cors from "./config/corsConfig.js";
+import cors from "./corsConfig.js";
 import ensureAuth from "./middleware/ensureAuth.js";
 import MemoryStore from "memorystore";
 
