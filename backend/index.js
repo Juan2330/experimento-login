@@ -9,7 +9,7 @@ import ensureAuth from "./middleware/ensureAuth.js";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 10000;
 
 app.use(corsConfig);
 app.use(express.json());
