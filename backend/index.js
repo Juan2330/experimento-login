@@ -3,7 +3,7 @@ import session from "express-session";
 import passport from "passport";
 import dotenv from "dotenv";
 import githubAuth from "./auth/github.js";
-
+import cors from "./config/corsConfig.js";
 import ensureAuth from "./middleware/ensureAuth.js";
 import MemoryStore from "memorystore";
 
@@ -13,6 +13,8 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 
 const MemStore = MemoryStore(session);
+
+app.use(cors);
 
 app.use(session({
     cookie: { maxAge: 86400000 },
