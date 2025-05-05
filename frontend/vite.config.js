@@ -12,5 +12,14 @@ export default defineConfig({
     allowedHosts: [
       "experimento-login-frontend-production.up.railway.app"
     ]
-  }
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://experimento-login-production.up.railway.app',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });
