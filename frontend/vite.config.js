@@ -6,4 +6,11 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   base: '/',
   plugins: [react(), tailwindcss()],
+  preview: {
+    port: 4173, 
+    host: true,
+    allowedHosts: [
+      "experimento-login-frontend-production.up.railway.app"
+    ]
+  }
 });
