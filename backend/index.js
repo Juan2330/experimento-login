@@ -13,24 +13,25 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 const MemStore = MemoryStore(session);
 
-app.use(cors);
-
 app.use(session({
     store: new MemStore({ checkPeriod: 86400000 }),
     secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
+    proxy: true,
     cookie: {
         httpOnly: true,
         maxAge: 86400000,
-        secure: true, 
-        sameSite: 'none', 
+        secure: true,
+        sameSite: 'none',
         domain: process.env.NODE_ENV === 'production' 
-            ? '.railway.app' 
+            ? '.railway.app'
             : undefined
     },
 }));
 
+app.enable('trust proxy');
+app.use(cors);
 app.use(passport.initialize());
 app.use(passport.session());
 

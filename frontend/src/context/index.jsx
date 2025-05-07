@@ -8,18 +8,23 @@ export function UserProvider({ children }) {
     useEffect(() => {
         fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user`, {
             method: "GET",
-            credentials: "include", 
+            credentials: "include",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
         })
-        .then((res) => {
+        .then(async (res) => {
             if (!res.ok) {
-                console.error("Error fetching user:", res.status);
-                return null;
+                const errorData = await res.json().catch(() => ({}));
+                console.error("Error details:", errorData);
+                throw new Error(`HTTP error! status: ${res.status}`);
             }
             return res.json();
         })
         .then((data) => setUser(data))
         .catch((err) => {
-            console.error("Fetch error:", err);
+            console.error("Full fetch error:", err);
             setUser(null);
         });
     }, []);
