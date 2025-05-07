@@ -23,12 +23,11 @@ app.use(session({
     cookie: {
         httpOnly: true,
         maxAge: 86400000,
-        secure: true,
-        sameSite: "none",
-        httpOnly: true,
-        maxAge: 86400000,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
+        secure: true, 
+        sameSite: 'none', 
+        domain: process.env.NODE_ENV === 'production' 
+            ? '.railway.app' 
+            : undefined
     },
 }));
 

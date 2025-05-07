@@ -12,6 +12,7 @@ export default function githubAuth(passport) {
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
         callbackURL: process.env.GITHUB_CALLBACK,
+        scope: ['user:email'] 
     }, (accessToken, refreshToken, profile, done) => {
         return done(null, profile);
     }));

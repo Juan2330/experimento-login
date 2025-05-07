@@ -10,9 +10,18 @@ export function UserProvider({ children }) {
             method: "GET",
             credentials: "include", 
         })
-            .then((res) => (res.ok ? res.json() : null))
-            .then((data) => setUser(data))
-            .catch(() => {});
+        .then((res) => {
+            if (!res.ok) {
+                console.error("Error fetching user:", res.status);
+                return null;
+            }
+            return res.json();
+        })
+        .then((data) => setUser(data))
+        .catch((err) => {
+            console.error("Fetch error:", err);
+            setUser(null);
+        });
     }, []);
 
     return (
